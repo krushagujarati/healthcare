@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import DoctorCard from "../components/DoctorCard";
+import "../styles/doctorfinder.css";  // Custom CSS import
 
 const specialties = ["Cardiology", "Dermatology", "Neurology", "Pediatrics", "Orthopedics"];
 const genders = ["Male", "Female", "Other"];
 const ratings = [5, 4, 3, 2, 1];
 
 const allDoctors = [
-  // Dummy data - in real app, fetch from API
   {
     id: 1,
     name: "Dr. Alice Smith",
@@ -31,7 +31,7 @@ const allDoctors = [
     gender: "Female",
     rating: 5,
   },
-  // add more doctors for demonstration...
+  // add more doctors...
 ];
 
 const ITEMS_PER_PAGE = 6;
@@ -51,9 +51,7 @@ const DoctorFinder = () => {
     let filtered = allDoctors;
 
     if (filters.specialty) {
-      filtered = filtered.filter(
-        (doc) => doc.specialty === filters.specialty
-      );
+      filtered = filtered.filter((doc) => doc.specialty === filters.specialty);
     }
     if (filters.location) {
       filtered = filtered.filter((doc) =>
@@ -68,7 +66,7 @@ const DoctorFinder = () => {
     }
 
     setFilteredDoctors(filtered);
-    setPage(1); // reset to first page on filter change
+    setPage(1);
   }, [filters]);
 
   const handleFilterChange = (e) => {
@@ -76,24 +74,21 @@ const DoctorFinder = () => {
     setFilters((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Pagination logic
+  // Pagination
   const startIndex = (page - 1) * ITEMS_PER_PAGE;
   const pagedDoctors = filteredDoctors.slice(startIndex, startIndex + ITEMS_PER_PAGE);
-
   const totalPages = Math.ceil(filteredDoctors.length / ITEMS_PER_PAGE);
 
   return (
-    <div className="max-w-7xl mx-auto px-6 py-8">
-      <h1 className="text-3xl font-semibold mb-6">Find a Doctor</h1>
+    <div className="doctor-finder-container">
+      <h1 className="doctor-finder-title">Find a Doctor</h1>
 
-      {/* Filters */}
-      <div className="bg-white p-6 rounded-md shadow-md mb-8 grid grid-cols-1 md:grid-cols-4 gap-4">
-        {/* Specialty */}
+      <div className="filters-container">
         <select
           name="specialty"
           value={filters.specialty}
           onChange={handleFilterChange}
-          className="border border-gray-300 rounded px-3 py-2"
+          className="filter-input"
         >
           <option value="">All Specialties</option>
           {specialties.map((spec) => (
@@ -103,22 +98,20 @@ const DoctorFinder = () => {
           ))}
         </select>
 
-        {/* Location */}
         <input
           type="text"
           name="location"
           placeholder="Location"
           value={filters.location}
           onChange={handleFilterChange}
-          className="border border-gray-300 rounded px-3 py-2"
+          className="filter-input"
         />
 
-        {/* Gender */}
         <select
           name="gender"
           value={filters.gender}
           onChange={handleFilterChange}
-          className="border border-gray-300 rounded px-3 py-2"
+          className="filter-input"
         >
           <option value="">Any Gender</option>
           {genders.map((g) => (
@@ -128,12 +121,11 @@ const DoctorFinder = () => {
           ))}
         </select>
 
-        {/* Rating */}
         <select
           name="rating"
           value={filters.rating}
           onChange={handleFilterChange}
-          className="border border-gray-300 rounded px-3 py-2"
+          className="filter-input"
         >
           <option value="">Any Rating</option>
           {ratings.map((r) => (
@@ -144,32 +136,30 @@ const DoctorFinder = () => {
         </select>
       </div>
 
-      {/* Doctor Cards Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      <div className="doctors-grid">
         {pagedDoctors.length === 0 ? (
-          <p className="text-center col-span-full">No doctors found with current filters.</p>
+          <p className="no-results">No doctors found with current filters.</p>
         ) : (
           pagedDoctors.map((doctor) => <DoctorCard key={doctor.id} doctor={doctor} />)
         )}
       </div>
 
-      {/* Pagination */}
       {totalPages > 1 && (
-        <div className="flex justify-center items-center mt-8 space-x-4">
+        <div className="pagination">
           <button
             disabled={page === 1}
             onClick={() => setPage(page - 1)}
-            className="px-4 py-2 bg-blue-600 text-white rounded disabled:bg-gray-400"
+            className="pagination-btn"
           >
             Prev
           </button>
-          <span>
+          <span className="pagination-info">
             Page {page} of {totalPages}
           </span>
           <button
             disabled={page === totalPages}
             onClick={() => setPage(page + 1)}
-            className="px-4 py-2 bg-blue-600 text-white rounded disabled:bg-gray-400"
+            className="pagination-btn"
           >
             Next
           </button>

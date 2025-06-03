@@ -1,4 +1,6 @@
 import React from "react";
+import '../styles/testimonial.css';
+
 
 const testimonials = [
   {
@@ -30,9 +32,11 @@ const Testimonial = () => {
           {testimonials.map(({ id, name, feedback }) => (
             <div
               key={id}
-              className="bg-white p-6 rounded-lg shadow-md max-w-xl mx-auto"
+              className="bg-white p-6 rounded-lg shadow-md max-w-xl mx-auto transition transform hover:scale-[1.02] hover:shadow-lg"
             >
-              <p className="text-gray-800 italic mb-4">"{feedback}"</p>
+              <p className="text-gray-800 italic mb-4 relative before:content-['“'] before:absolute before:-left-4 before:text-4xl before:text-blue-300">
+                {feedback}
+              </p>
               <p className="font-semibold text-blue-700">- {name}</p>
             </div>
           ))}

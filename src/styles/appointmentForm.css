@@ -1,0 +1,115 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&display=swap');
+
+:root {
+  --primary: #A3D2CA;
+  --accent: #5EAAA8;
+  --light: #F8F8F8;
+  --text: #2E2E2E;
+  --bg: #EAF4F4;
+  --button-hover: #497e7c;
+}
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background-color: var(--bg);
+  margin: 0;
+  padding: 0;
+}
+
+.appointment-form-container {
+  max-width: 600px;
+  margin: 60px auto;
+  background: var(--light);
+  background-image: url('https://cdn.pixabay.com/photo/2017/01/31/13/14/doctor-2027768_1280.png');
+background-repeat: no-repeat;
+background-position: right bottom;
+background-size: 120px;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  padding: 40px 30px;
+  animation: fadeIn 1.2s ease-in-out;
+}
+
+.appointment-form-container h2 {
+  text-align: center;
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.appointment-form-container h2 span {
+  color: var(--primary);
+}
+
+.appointment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.appointment-form label {
+  font-weight: 600;
+  color: var(--text);
+  font-size: 16px;
+}
+
+.appointment-form input,
+.appointment-form textarea {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  font-size: 15px;
+  background-color: #fff;
+  transition: all 0.3s ease;
+}
+
+.appointment-form input:focus,
+.appointment-form textarea:focus {
+  border-color: var(--primary);
+  outline: none;
+  box-shadow: 0 0 5px var(--primary);
+}
+
+.appointment-form button {
+  background-color: var(--accent);
+  color: white;
+  padding: 14px;
+  border: none;
+  border-radius: 14px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.appointment-form button:hover {
+  background-color: var(--button-hover);
+}
+
+/* Animation */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media screen and (max-width: 600px) {
+  .appointment-form-container {
+    padding: 25px 20px;
+  }
+
+  .appointment-form label {
+    font-size: 14px;
+  }
+
+  .appointment-form input,
+  .appointment-form textarea {
+    font-size: 14px;
+  }
+}

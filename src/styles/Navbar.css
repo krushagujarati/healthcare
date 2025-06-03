@@ -1,29 +1,104 @@
-.navbar {
+/* navbar.css */
+
+/* Navbar container */
+nav {
+  background-color: #ffffff; /* White background */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* subtle shadow */
+  position: relative;
+  z-index: 10;
+}
+
+/* Wrapper inside navbar */
+nav > div {
+  max-width: 1120px; /* roughly 7xl */
+  margin: 0 auto;
+  padding: 1rem 1.5rem; /* 16px top/bottom, 24px left/right */
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #004d40;
-  padding: 1rem 2rem;
-  color: white;
 }
 
-.logo {
-  font-size: 1.8rem;
-  font-weight: bold;
-}
-
-.nav-links {
-  list-style: none;
-  display: flex;
-  gap: 1.5rem;
-}
-
-.nav-links li a {
-  color: white;
+/* Brand/logo link */
+nav a.text-2xl {
+  font-weight: 700;
+  color: #2563eb; /* Tailwind blue-600 */
   text-decoration: none;
-  font-weight: 500;
 }
 
-.nav-links li a:hover {
+nav a.text-2xl:hover,
+nav a.text-2xl:focus {
+  color: #1d4ed8; /* blue-700 */
+  outline: none;
+  text-decoration: underline;
+}
+
+/* Desktop menu */
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 1.5rem; /* space between links */
+}
+
+ul li a {
+  color: #374151; /* gray-700 */
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+ul li a:hover,
+ul li a:focus {
+  color: #2563eb; /* blue-600 */
+  outline: none;
+  text-decoration: underline;
+}
+
+/* Hide desktop menu on small screens */
+@media (max-width: 767px) {
+  ul {
+    display: none;
+  }
+}
+
+/* Mobile menu button */
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #374151; /* gray-700 */
+  display: none;
+  padding: 0.25rem;
+}
+
+/* Show button on mobile */
+@media (max-width: 767px) {
+  button {
+    display: block;
+  }
+}
+
+/* Mobile menu (dropdown) */
+.mobile-menu {
+  background-color: #ffffff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  padding: 1rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.mobile-menu a {
+  color: #374151; /* gray-700 */
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.mobile-menu a:hover,
+.mobile-menu a:focus {
+  color: #2563eb; /* blue-600 */
+  outline: none;
   text-decoration: underline;
 }

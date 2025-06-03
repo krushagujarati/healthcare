@@ -1,0 +1,41 @@
+/* HospitalCard Styles */
+
+.hospital-card {
+  border: 1px solid #ddd;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.06);
+  transition: box-shadow 0.3s ease;
+  background-color: #fff;
+}
+
+.hospital-card:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.hospital-image {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 0.375rem;
+  margin-bottom: 1rem;
+}
+
+.hospital-name {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  color: #111827;
+}
+
+.hospital-address,
+.hospital-phone {
+  color: #4B5563;
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.hospital-rating {
+  color: #F59E0B; /* yellow-500 */
+  font-weight: 600;
+}

@@ -1,20 +1,28 @@
-import React, { useState, useContext } from "react";
-import { AuthContext } from "../contexts/AuthContext";
+import React, { useState } from "react";
+import { useAuth } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
+import "../styles/profile.css";
 
 const Profile = () => {
-  const { user, logout, updateUser } = useContext(AuthContext);
+  const auth = useAuth();
   const navigate = useNavigate();
 
-  // Simulated appointments data (replace with API data)
-  const [appointments, setAppointments] = useState([
+  // Default values to prevent errors if auth or user is undefined initially
+  const user = auth?.user || {};
+  const logout = auth?.logout || (() => {});
+  const updateUser = auth?.updateUser || (() => {});
+
+  // Simulated appointments data
+  const [appointments] = useState([
     { id: 1, doctor: "Dr. Smith", date: "2025-06-10", status: "Booked" },
     { id: 2, doctor: "Dr. Jane", date: "2025-05-20", status: "Completed" },
   ]);
 
-  // For edit profile form
   const [email, setEmail] = useState(user.email || "");
   const [phone, setPhone] = useState(user.phone || "");
+
+  if (!auth) return <p>Loading auth...</p>;
+  if (!user || !user.name) return <p>No user is logged in.</p>;
 
   const handleLogout = () => {
     logout();
@@ -22,52 +30,47 @@ const Profile = () => {
   };
 
   const handleSave = () => {
-    // Basic validation can be added
     updateUser({ email, phone });
     alert("Profile updated!");
   };
 
   return (
-    <div className="max-w-3xl mx-auto p-6">
+    <div className="profile-container">
       {/* Welcome Banner */}
-      <div className="flex items-center gap-4 mb-8">
+      <div className="welcome-banner">
         <img
           src={user.photoURL || "https://via.placeholder.com/80"}
           alt="Profile"
-          className="w-20 h-20 rounded-full object-cover"
+          className="profile-image"
         />
-        <h1 className="text-3xl font-semibold">Welcome, {user.name || "User"}!</h1>
+        <h1 className="welcome-text">Welcome, {user.name || "User"}!</h1>
       </div>
 
       {/* Upcoming Appointments */}
-      <section className="mb-8">
-        <h2 className="text-2xl font-semibold mb-4">Upcoming Appointments</h2>
+      <section className="appointments-section">
+        <h2>Upcoming Appointments</h2>
         {appointments.length === 0 ? (
           <p>No upcoming appointments.</p>
         ) : (
-          <ul className="space-y-3">
+          <ul className="appointments-list">
             {appointments.map(({ id, doctor, date, status }) => (
               <li
                 key={id}
-                className={`p-4 border rounded flex justify-between items-center ${
+                className={`appointment-item ${
                   status === "Completed"
-                    ? "bg-green-100 border-green-400"
-                    : "bg-yellow-100 border-yellow-400"
+                    ? "appointment-completed"
+                    : "appointment-booked"
                 }`}
               >
                 <div>
-                  <p>
-                    <strong>Doctor:</strong> {doctor}
-                  </p>
-                  <p>
-                    <strong>Date:</strong> {date}
-                  </p>
+                  <p><strong>Doctor:</strong> {doctor}</p>
+                  <p><strong>Date:</strong> {date}</p>
                 </div>
                 <span
-                  className={`font-semibold px-3 py-1 rounded ${
+                  className={`status-badge ${
                     status === "Completed"
-                      ? "bg-green-500 text-white"
-                      : "bg-yellow-500 text-black"
+                      ? "status-completed"
+                      : "status-booked"
                   }`}
                 >
                   {status}
@@ -79,55 +82,45 @@ const Profile = () => {
       </section>
 
       {/* Edit Profile */}
-      <section className="mb-8">
-        <h2 className="text-2xl font-semibold mb-4">Edit Profile</h2>
+      <section className="edit-profile-section">
+        <h2>Edit Profile</h2>
         <form
           onSubmit={(e) => {
             e.preventDefault();
             handleSave();
           }}
-          className="space-y-4 max-w-md"
+          className="edit-profile-form"
         >
-          <div>
-            <label htmlFor="email" className="block font-medium mb-1">
-              Email
-            </label>
+          <div className="form-group">
+            <label htmlFor="email">Email</label>
             <input
               id="email"
               type="email"
-              className="w-full px-3 py-2 border rounded"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              required
             />
           </div>
 
-          <div>
-            <label htmlFor="phone" className="block font-medium mb-1">
-              Phone
-            </label>
+          <div className="form-group">
+            <label htmlFor="phone">Phone</label>
             <input
               id="phone"
               type="tel"
-              className="w-full px-3 py-2 border rounded"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
+              required
             />
           </div>
 
-          <button
-            type="submit"
-            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
-          >
+          <button type="submit" className="btn btn-primary">
             Save Changes
           </button>
         </form>
       </section>
 
       {/* Logout Button */}
-      <button
-        onClick={handleLogout}
-        className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition"
-      >
+      <button onClick={handleLogout} className="btn btn-danger">
         Logout
       </button>
     </div>

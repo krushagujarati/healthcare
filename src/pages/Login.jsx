@@ -1,5 +1,7 @@
+// src/pages/Login.jsx
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "../styles/login.css"
 
 const Login = () => {
   const [isRegister, setIsRegister] = useState(false);

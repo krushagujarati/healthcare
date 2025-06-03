@@ -1,0 +1,83 @@
+/* Container for the HospitalLocator page */
+.hospital-locator-container {
+  max-width: 96rem; /* approx 6xl */
+  margin: 0 auto;
+  padding: 1.5rem; /* 24px */
+}
+
+/* Heading style */
+.hospital-locator-header {
+  font-size: 1.875rem; /* text-3xl */
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: #1f2937; /* gray-800 */
+}
+
+/* Loading text style */
+.hospital-loading {
+  text-align: center;
+  color: #6b7280; /* gray-500 */
+}
+
+/* Grid container */
+.hospital-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(1, 1fr);
+}
+
+@media (min-width: 640px) {
+  .hospital-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 768px) {
+  .hospital-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* HospitalCard styles */
+.hospital-card {
+  background-color: #ffffff;
+  border-radius: 0.5rem; /* rounded */
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.1);
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.hospital-card:hover {
+  box-shadow: 0 4px 12px rgb(0 0 0 / 0.15);
+}
+
+.hospital-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.hospital-card-body {
+  padding: 1rem;
+}
+
+.hospital-card-name {
+  font-weight: 600;
+  font-size: 1.125rem; /* text-lg */
+  margin-bottom: 0.25rem;
+  color: #111827; /* gray-900 */
+}
+
+.hospital-card-address,
+.hospital-card-phone {
+  font-size: 0.875rem; /* text-sm */
+  color: #6b7280; /* gray-500 */
+  margin-bottom: 0.25rem;
+}
+
+.hospital-card-rating {
+  font-weight: 600;
+  color: #fbbf24; /* amber-400 for stars */
+}

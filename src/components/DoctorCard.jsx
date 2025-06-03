@@ -1,23 +1,92 @@
-import React from "react";
+import React, { useState } from "react";
+import "../styles/doctorCard.css";
+import AppointmentForm from "./AppointmentForm";
 
-const DoctorCard = ({ doctor }) => {
-  const { name, specialty, rating } = doctor;
+const doctorsList = [
+  {
+    name: "Dr. Sophia Patel",
+    specialty: "Cardiologist",
+    rating: 4,
+    image: "https://randomuser.me/api/portraits/women/65.jpg"
+  },
+  {
+    name: "Dr. Aakash Mehta",
+    specialty: "Dermatologist",
+    rating: 5,
+    image: "https://randomuser.me/api/portraits/men/75.jpg"
+  },
+  {
+    name: "Dr. Riya Sharma",
+    specialty: "Pediatrician",
+    rating: 4,
+    image: "https://randomuser.me/api/portraits/women/68.jpg"
+  },
+  {
+    name: "Dr. Kabir Sen",
+    specialty: "Neurologist",
+    rating: 3,
+    image: "https://randomuser.me/api/portraits/men/60.jpg"
+  },
+  {
+    name: "Dr. Anjali Desai",
+    specialty: "Gynecologist",
+    rating: 5,
+    image: "https://randomuser.me/api/portraits/women/75.jpg"
+  }
+];
+
+const Doctors = () => {
+  const [selectedDoctor, setSelectedDoctor] = useState(null);
+
+  const handleBookClick = (doctor) => {
+    setSelectedDoctor(doctor);
+  };
+
+  const handleCloseForm = () => {
+    setSelectedDoctor(null);
+  };
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow flex flex-col justify-between">
-      <div>
-        <h3 className="text-xl font-semibold mb-1">{name}</h3>
-        <p className="text-gray-600 mb-2">{specialty}</p>
-        <p className="text-yellow-500 mb-4">
-          {"⭐".repeat(rating)}{" "}
-          <span className="text-gray-400">{5 - rating} stars</span>
-        </p>
+    <div className="doctors-section">
+      <h2 className="section-title">Our Top Doctors</h2>
+      <div className="doctor-grid">
+        {doctorsList.map((doctor, index) => (
+          <div className="doctor-card" key={index}>
+            <div className="doctor-info">
+              <img
+                src={doctor.image}
+                alt={doctor.name}
+                className="doctor-avatar"
+              />
+              <h3 className="doctor-name">{doctor.name}</h3>
+              <p className="doctor-specialty">{doctor.specialty}</p>
+              <p className="doctor-rating">
+                {"★".repeat(doctor.rating)}
+                {"☆".repeat(5 - doctor.rating)}
+              </p>
+            </div>
+            <button
+              className="book-button"
+              onClick={() => handleBookClick(doctor)}
+            >
+              Book Appointment
+            </button>
+          </div>
+        ))}
       </div>
-      <button className="mt-auto bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
-        Book Appointment
-      </button>
+
+      {selectedDoctor && (
+        <div className="modal-backdrop">
+          <div className="modal-box">
+            <button className="close-modal" onClick={handleCloseForm}>
+              ×
+            </button>
+            <AppointmentForm doctorName={selectedDoctor.name} />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
 
-export default DoctorCard;
+export default Doctors;

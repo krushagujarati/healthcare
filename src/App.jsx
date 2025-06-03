@@ -9,7 +9,9 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Profile from './pages/Profile';
 import NotFound from './pages/NotFound';
-import ProtectedRoute from './components/ProtectedRoute';
+//import ProtectedRoute from './components/ProtectedRoute';
+import './styles/global.css';
+
 
 export default function App() {
   return (
@@ -26,9 +28,9 @@ export default function App() {
           <Route
             path="/profile"
             element={
-              <ProtectedRoute>
+              //<ProtectedRoute>
                 <Profile />
-              </ProtectedRoute>
+              //</ProtectedRoute>
             }
           />
           <Route path="*" element={<NotFound />} />
