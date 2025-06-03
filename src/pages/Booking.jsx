@@ -1,37 +1,36 @@
-// src/pages/Booking.jsx
-import React from 'react';
-import { Container, Form, Button } from 'react-bootstrap';
+import React, { useState } from 'react';
 import '../styles/Booking.css';
 
 const Booking = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    date: '',
+    department: '',
+  });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    alert(`Appointment booked for ${formData.name} on ${formData.date}`);
+  };
+
   return (
-    <Container className="mt-4">
+    <div className="booking-form">
       <h2>Book an Appointment</h2>
-      <Form>
-        <Form.Group controlId="formName" className="mb-3">
-          <Form.Label>Full Name</Form.Label>
-          <Form.Control type="text" placeholder="Enter your name" />
-        </Form.Group>
-
-        <Form.Group controlId="formEmail" className="mb-3">
-          <Form.Label>Email address</Form.Label>
-          <Form.Control type="email" placeholder="Enter email" />
-        </Form.Group>
-
-        <Form.Group controlId="formDoctor" className="mb-3">
-          <Form.Label>Select Doctor</Form.Label>
-          <Form.Select>
-            <option>Select...</option>
-            <option>Dr. A. Sharma</option>
-            <option>Dr. R. Mehta</option>
-          </Form.Select>
-        </Form.Group>
-
-        <Button variant="primary" type="submit">
-          Book Now
-        </Button>
-      </Form>
-    </Container>
+      <form onSubmit={handleSubmit}>
+        <input type="text" name="name" placeholder="Your Name" onChange={handleChange} required />
+        <input type="date" name="date" onChange={handleChange} required />
+        <select name="department" onChange={handleChange} required>
+          <option value="">Select Department</option>
+          <option value="cardio">Cardiology</option>
+          <option value="neuro">Neurology</option>
+        </select>
+        <button type="submit">Confirm Booking</button>
+      </form>
+    </div>
   );
 };
 

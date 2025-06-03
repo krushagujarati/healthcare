@@ -1,31 +1,18 @@
-// src/components/Navbar.jsx
 import React from 'react';
-import { Navbar, Nav, Container } from 'react-bootstrap';
-import { LinkContainer } from 'react-router-bootstrap';
+import { Link } from 'react-router-dom';
 import '../styles/Navbar.css';
 
-const NavbarComp = () => {
+const Navbar = () => {
   return (
-    <Navbar bg="light" expand="lg" sticky="top">
-      <Container>
-        <Navbar.Brand href="/">MedEase</Navbar.Brand>
-        <Navbar.Toggle aria-controls="main-navbar" />
-        <Navbar.Collapse id="main-navbar">
-          <Nav className="ms-auto">
-            <LinkContainer to="/">
-              <Nav.Link>Home</Nav.Link>
-            </LinkContainer>
-            <LinkContainer to="/doctors">
-              <Nav.Link>Doctors</Nav.Link>
-            </LinkContainer>
-            <LinkContainer to="/booking">
-              <Nav.Link>Book Appointment</Nav.Link>
-            </LinkContainer>
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+    <nav className="navbar">
+      <h1 className="logo">MedEase</h1>
+      <ul className="nav-links">
+        <li><Link to="/">Home</Link></li>
+        <li><Link to="/doctors">Doctors</Link></li>
+        <li><Link to="/booking">Booking</Link></li>
+      </ul>
+    </nav>
   );
 };
 
-export default NavbarComp;
+export default Navbar;

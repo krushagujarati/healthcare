@@ -1,51 +1,25 @@
-// src/pages/Home.jsx
 import React from 'react';
-import { Container, Carousel, CardGroup, Card, Button } from 'react-bootstrap';
 import '../styles/Home.css';
+import { Link } from 'react-router-dom';
+
 const Home = () => {
   return (
-    <Container className="mt-4">
-      <Carousel>
-        <Carousel.Item>
-          <img className="d-block w-100" src="https://via.placeholder.com/1200x400" alt="First slide" />
-          <Carousel.Caption>
-            <h3>Trusted Healthcare at Your Fingertips</h3>
-          </Carousel.Caption>
-        </Carousel.Item>
-        <Carousel.Item>
-          <img className="d-block w-100" src="https://via.placeholder.com/1200x400" alt="Second slide" />
-          <Carousel.Caption>
-            <h3>Book Appointments Quickly</h3>
-          </Carousel.Caption>
-        </Carousel.Item>
-      </Carousel>
+    <div className="home-container">
+      <section className="hero">
+        <h2>Welcome to MedEase</h2>
+        <p>Your trusted healthcare booking partner</p>
+        <Link to="/booking" className="btn-book">Book Appointment</Link>
+      </section>
 
-      <h2 className="my-4 text-center">Our Services</h2>
-      <CardGroup>
-        <Card>
-          <Card.Body>
-            <Card.Title>24/7 Doctors</Card.Title>
-            <Card.Text>Consult expert doctors anytime, anywhere.</Card.Text>
-          </Card.Body>
-        </Card>
-        <Card>
-          <Card.Body>
-            <Card.Title>Online Booking</Card.Title>
-            <Card.Text>Book your appointments instantly with ease.</Card.Text>
-          </Card.Body>
-        </Card>
-        <Card>
-          <Card.Body>
-            <Card.Title>Health Info</Card.Title>
-            <Card.Text>Access reliable health information and tips.</Card.Text>
-          </Card.Body>
-        </Card>
-      </CardGroup>
-
-      <div className="text-center mt-4">
-        <Button variant="primary" href="/booking">Book an Appointment</Button>
-      </div>
-    </Container>
+      <section className="services">
+        <h3>Our Services</h3>
+        <div className="cards">
+          <div className="card">General Checkup</div>
+          <div className="card">Specialist Consultation</div>
+          <div className="card">Emergency Services</div>
+        </div>
+      </section>
+    </div>
   );
 };
 
