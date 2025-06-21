@@ -1,41 +1,50 @@
 import React from "react";
-import '../styles/footer.css';
+import "../styles/footer.css";
+import { FaFacebookF, FaTwitter, FaGithub, FaDribbble } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <footer className="custom-footer">
+    <footer className="footer">
       <div className="footer-container">
-        <div className="footer-section">
-          <h3>About</h3>
-          <p>
-            HealthCare is dedicated to connecting patients with the best
-            healthcare professionals and services in their area.
-          </p>
-        </div>
-
-        <div className="footer-section">
-          <h3>Contact</h3>
-          <p>Email: support@healthcare.com</p>
-          <p>Phone: +1 (555) 123-4567</p>
-          <p>Address: 123 Health St., Wellness City</p>
-        </div>
-
-        <div className="footer-section">
-          <h3>Legal</h3>
-          <ul>
-            <li><a href="https://www.instagram.com/krusha.gujarati/?hl=en">Terms of Service</a></li>
-            <li><a href="https://www.instagram.com/krusha.gujarati/?hl=en">Privacy Policy</a></li>
-          </ul>
-          <div className="footer-socials">
-            <a href="https://www.instagram.com/krusha.gujarati/?hl=en" aria-label="Facebook">👍</a>
-            <a href="https://www.instagram.com/krusha.gujarati/?hl=en" aria-label="Twitter">🐦</a>
-            <a href="https://www.instagram.com/krusha.gujarati/?hl=en" aria-label="Instagram">📸</a>
+        {/* Left Section */}
+        <div className="footer-brand">
+          <h3><span className="icon">❗</span> <span className="brand-name">HealthConnect</span></h3>
+          <p>Connecting patients with trusted healthcare professionals for better health outcomes.</p>
+          <div className="social-icons">
+            <FaFacebookF />
+            <FaTwitter />
+            <FaGithub />
+            <FaDribbble />
           </div>
+        </div>
+
+        {/* Quick Links */}
+        <div className="footer-links">
+          <h4>Quick Links</h4>
+          <ul>
+            <li>Home</li>
+            <li>Find Doctors</li>
+            <li>Hospitals</li>
+            <li>Specialties</li>
+            <li>About Us</li>
+          </ul>
+        </div>
+
+        {/* Support */}
+        <div className="footer-links">
+          <h4>Support</h4>
+          <ul>
+            <li>Help Center</li>
+            <li>Privacy Policy</li>
+            <li>Terms of Service</li>
+            <li>Contact Us</li>
+          </ul>
         </div>
       </div>
 
+      {/* Bottom Note */}
       <div className="footer-bottom">
-        &copy; {new Date().getFullYear()} HealthCare. All rights reserved.
+        © 2025 HealthConnect. All rights reserved.
       </div>
     </footer>
   );

@@ -2,9 +2,12 @@
 import React from 'react';
 
 import Hero from '../components/Hero';
-import Features from '../components/Features';
 import HowItWorks from '../components/HowItWorks';
 import Testimonial from '../components/Testimonial';
+import TopSpecialties from '../components/TopSpecialties';
+
+
+
 
 
 const Home = () => {
@@ -12,7 +15,8 @@ const Home = () => {
     <div className="bg-white text-gray-800">
       
       <Hero />
-      <Features />
+      <TopSpecialties/>
+      
       <HowItWorks />
       <Testimonial />
       

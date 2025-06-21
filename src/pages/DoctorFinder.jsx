@@ -1,47 +1,70 @@
 import React, { useState, useEffect } from "react";
-import DoctorCard from "../components/DoctorCard";
-import "../styles/doctorfinder.css";  // Custom CSS import
+import { useNavigate } from "react-router-dom";
+import { FaMapMarkerAlt, FaClock } from "react-icons/fa";
+import { MdStar } from "react-icons/md";
+import "../styles/doctorfinder.css";
 
-const specialties = ["Cardiology", "Dermatology", "Neurology", "Pediatrics", "Orthopedics"];
-const genders = ["Male", "Female", "Other"];
-const ratings = [5, 4, 3, 2, 1];
-
-const allDoctors = [
-  {
-    id: 1,
-    name: "Dr. Alice Smith",
-    specialty: "Cardiology",
-    location: "New York",
-    gender: "Female",
-    rating: 5,
-  },
-  {
-    id: 2,
-    name: "Dr. Bob Johnson",
-    specialty: "Dermatology",
-    location: "Los Angeles",
-    gender: "Male",
-    rating: 4,
-  },
-  {
-    id: 3,
-    name: "Dr. Carol White",
-    specialty: "Neurology",
-    location: "Chicago",
-    gender: "Female",
-    rating: 5,
-  },
-  // add more doctors...
+const specialties = [
+  "Cardiologist",
+  "Dermatologist",
+  "Pediatrician",
+  "Neurologist",
+  "Orthopedic",
+  "Gynecologist",
+  "ENT",
+  "Ophthalmologist",
+  "Dentist",
+  "Psychiatrist",
 ];
 
-const ITEMS_PER_PAGE = 6;
+const locations = [
+  "Delhi",
+  "Mumbai",
+  "Bangalore",
+  "Hyderabad",
+  "Chennai",
+  "Kolkata",
+  "Pune",
+  "Ahmedabad",
+  "Jaipur",
+  "Surat",
+];
+
+const allDoctors = Array.from({ length: 30 }, (_, i) => {
+  const names = [
+    "Dr. Aarav Mehta", "Dr. Kavya Sharma", "Dr. Rajat Patel", "Dr. Anaya Reddy",
+    "Dr. Manish Verma", "Dr. Nisha Iyer", "Dr. Arjun Das", "Dr. Sneha Kapoor",
+    "Dr. Rohit Nair", "Dr. Priya Bhatt", "Dr. Aniket Joshi", "Dr. Riya Ghosh",
+    "Dr. Vikram Sethi", "Dr. Tanya Bansal", "Dr. Karan Malhotra", "Dr. Shruti Rao",
+    "Dr. Devansh Singh", "Dr. Meera Jain", "Dr. Akash Tiwari", "Dr. Divya Shetty",
+    "Dr. Mohit Choudhary", "Dr. Sanjana Desai", "Dr. Harsh Vora", "Dr. Ishita Roy",
+    "Dr. Aditya Menon", "Dr. Mitali Sinha", "Dr. Neeraj Kaul", "Dr. Radhika Pillai",
+    "Dr. Sandeep Bhatia", "Dr. Aditi Nair"
+  ];
+
+  return {
+    id: i + 1,
+    name: names[i],
+    specialty: specialties[i % specialties.length],
+    location: locations[i % locations.length],
+    experience: `${5 + (i % 20)} years`,
+    rating: (4 + (i % 10) * 0.1).toFixed(1),
+    gender: i % 2 === 0 ? "Male" : "Female",
+    cost: 300 + (i % 5) * 50,
+  };
+});
+
+const ITEMS_PER_PAGE = 9;
 
 const DoctorFinder = () => {
+  const navigate = useNavigate();
+
   const [filters, setFilters] = useState({
     specialty: "",
     location: "",
     gender: "",
     rating: "",
+    sortBy: "Highest Rated",
   });
 
   const [page, setPage] = useState(1);
@@ -54,15 +77,19 @@ const DoctorFinder = () => {
       filtered = filtered.filter((doc) => doc.specialty === filters.specialty);
     }
     if (filters.location) {
-      filtered = filtered.filter((doc) =>
-        doc.location.toLowerCase().includes(filters.location.toLowerCase())
-      );
+      filtered = filtered.filter((doc) => doc.location === filters.location);
     }
     if (filters.gender) {
       filtered = filtered.filter((doc) => doc.gender === filters.gender);
     }
     if (filters.rating) {
-      filtered = filtered.filter((doc) => doc.rating >= parseInt(filters.rating));
+      filtered = filtered.filter((doc) => doc.rating >= parseFloat(filters.rating));
+    }
+
+    if (filters.sortBy === "Highest Rated") {
+      filtered.sort((a, b) => b.rating - a.rating);
+    } else if (filters.sortBy === "Lowest Cost") {
+      filtered.sort((a, b) => a.cost - b.cost);
     }
 
     setFilteredDoctors(filtered);
@@ -74,95 +101,89 @@ const DoctorFinder = () => {
     setFilters((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Pagination
   const startIndex = (page - 1) * ITEMS_PER_PAGE;
   const pagedDoctors = filteredDoctors.slice(startIndex, startIndex + ITEMS_PER_PAGE);
   const totalPages = Math.ceil(filteredDoctors.length / ITEMS_PER_PAGE);
 
   return (
-    <div className="doctor-finder-container">
-      <h1 className="doctor-finder-title">Find a Doctor</h1>
+    <div className="doctor-finder">
+      <h2>Find Doctors</h2>
+      <p>Search for the best healthcare professionals in your area</p>
 
-      <div className="filters-container">
-        <select
-          name="specialty"
-          value={filters.specialty}
-          onChange={handleFilterChange}
-          className="filter-input"
-        >
+      <div className="filters">
+        <select name="specialty" onChange={handleFilterChange}>
           <option value="">All Specialties</option>
-          {specialties.map((spec) => (
-            <option key={spec} value={spec}>
-              {spec}
-            </option>
+          {specialties.map((sp, idx) => (
+            <option key={idx} value={sp}>{sp}</option>
           ))}
         </select>
 
-        <input
-          type="text"
-          name="location"
-          placeholder="Location"
-          value={filters.location}
-          onChange={handleFilterChange}
-          className="filter-input"
-        />
+        <select name="location" onChange={handleFilterChange}>
+          <option value="">All Locations</option>
+          {locations.map((loc, idx) => (
+            <option key={idx} value={loc}>{loc}</option>
+          ))}
+        </select>
 
-        <select
-          name="gender"
-          value={filters.gender}
-          onChange={handleFilterChange}
-          className="filter-input"
-        >
+        <select name="gender" onChange={handleFilterChange}>
           <option value="">Any Gender</option>
-          {genders.map((g) => (
-            <option key={g} value={g}>
-              {g}
-            </option>
-          ))}
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
         </select>
 
-        <select
-          name="rating"
-          value={filters.rating}
-          onChange={handleFilterChange}
-          className="filter-input"
-        >
+        <select name="rating" onChange={handleFilterChange}>
           <option value="">Any Rating</option>
-          {ratings.map((r) => (
-            <option key={r} value={r}>
-              {r} & up
-            </option>
-          ))}
+          <option value="3">Above 3</option>
+          <option value="4">Above 4</option>
+          <option value="4.5">Above 4.5</option>
         </select>
+
+        <select name="sortBy" onChange={handleFilterChange}>
+          <option value="Highest Rated">Highest Rated</option>
+          <option value="Lowest Cost">Lowest Cost</option>
+        </select>
+
+        <button className="filter-button">Filter Results</button>
       </div>
 
-      <div className="doctors-grid">
+      <div className="doctor-list">
         {pagedDoctors.length === 0 ? (
           <p className="no-results">No doctors found with current filters.</p>
         ) : (
-          pagedDoctors.map((doctor) => <DoctorCard key={doctor.id} doctor={doctor} />)
+          pagedDoctors.map((doc, idx) => (
+            <div
+              key={idx}
+              className={`doctor-card ${doc.gender === 'Male' ? 'male-card' : 'female-card'}`}
+              onClick={() => navigate(`/profile/${doc.id}`)}
+            >
+              <div className="avatar">{doc.name.charAt(4)}</div>
+              <h4>{doc.name}</h4>
+              <p>{doc.specialty}</p>
+              <div className="info">
+                <span><FaMapMarkerAlt /> {doc.location}</span>
+                <span><FaClock /> {doc.experience}</span>
+              </div>
+              <div className="rating">
+                <MdStar className="star" /> {doc.rating}
+              </div>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  navigate(`/profile/${doc.id}`);
+                }}
+              >
+                Book Appointment
+              </button>
+            </div>
+          ))
         )}
       </div>
 
       {totalPages > 1 && (
         <div className="pagination">
-          <button
-            disabled={page === 1}
-            onClick={() => setPage(page - 1)}
-            className="pagination-btn"
-          >
-            Prev
-          </button>
-          <span className="pagination-info">
-            Page {page} of {totalPages}
-          </span>
-          <button
-            disabled={page === totalPages}
-            onClick={() => setPage(page + 1)}
-            className="pagination-btn"
-          >
-            Next
-          </button>
+          <button disabled={page === 1} onClick={() => setPage(page - 1)}>Prev</button>
+          <span>Page {page} of {totalPages}</span>
+          <button disabled={page === totalPages} onClick={() => setPage(page + 1)}>Next</button>
         </div>
       )}
     </div>

@@ -1,115 +1,127 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&display=swap');
-
-:root {
-  --primary: #A3D2CA;
-  --accent: #5EAAA8;
-  --light: #F8F8F8;
-  --text: #2E2E2E;
-  --bg: #EAF4F4;
-  --button-hover: #497e7c;
+.appointment-container {
+  background: #fff;
+  padding: 24px;
+  margin-top: 100px;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  font-family: 'Poppins', sans-serif;
 }
 
-body {
-  font-family: 'Nunito', sans-serif;
-  background-color: var(--bg);
-  margin: 0;
-  padding: 0;
-}
-
-.appointment-form-container {
-  max-width: 600px;
-  margin: 60px auto;
-  background: var(--light);
-  background-image: url('https://cdn.pixabay.com/photo/2017/01/31/13/14/doctor-2027768_1280.png');
-background-repeat: no-repeat;
-background-position: right bottom;
-background-size: 120px;
-  border-radius: 20px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-  padding: 40px 30px;
-  animation: fadeIn 1.2s ease-in-out;
-}
-
-.appointment-form-container h2 {
-  text-align: center;
-  color: var(--accent);
+h3 {
+  font-size: 24px;
   font-weight: 600;
-  margin-bottom: 20px;
 }
 
-.appointment-form-container h2 span {
-  color: var(--primary);
-}
-
-.appointment-form {
+.step-indicator {
   display: flex;
-  flex-direction: column;
-  gap: 18px;
+  justify-content: space-around;
+  margin: 20px 0;
+  font-size: 14px;
 }
 
-.appointment-form label {
+.step-indicator > div {
+  text-align: center;
+  width: 100px;
+  padding: 10px;
+  border-radius: 100px;
+  background: #eee;
+  color: #666;
+}
+
+.step-indicator .active {
+  background: linear-gradient(to right, #ff4081, #ff6e40);
+  color: white;
   font-weight: 600;
-  color: var(--text);
-  font-size: 16px;
 }
 
-.appointment-form input,
-.appointment-form textarea {
+.calendar-wrapper, .timeslot-wrapper, .confirm-wrapper {
+  margin-top: 20px;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.calendar-grid button {
   padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 12px;
-  font-size: 15px;
-  background-color: #fff;
+  border: none;
+  border-radius: 50%;
+  background: #f2f2f2;
+  cursor: pointer;
   transition: all 0.3s ease;
 }
 
-.appointment-form input:focus,
-.appointment-form textarea:focus {
-  border-color: var(--primary);
-  outline: none;
-  box-shadow: 0 0 5px var(--primary);
-}
-
-.appointment-form button {
-  background-color: var(--accent);
+.calendar-grid button.selected,
+.calendar-grid button:hover {
+  background: #ff4081;
   color: white;
-  padding: 14px;
-  border: none;
-  border-radius: 14px;
-  font-size: 16px;
-  font-weight: 600;
+}
+
+.timeslots {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 12px;
+  margin: 20px 0;
+}
+
+.timeslots button {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  background: #fff;
   cursor: pointer;
-  transition: background-color 0.3s ease;
 }
 
-.appointment-form button:hover {
-  background-color: var(--button-hover);
+.timeslots button.selected {
+  background: #ff4081;
+  color: white;
+  border-color: transparent;
 }
 
-/* Animation */
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-    transform: translateY(40px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.nav-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
 }
 
-/* Responsive */
-@media screen and (max-width: 600px) {
-  .appointment-form-container {
-    padding: 25px 20px;
-  }
+.nav-buttons button {
+  background: linear-gradient(to right, #ff4081, #ff6e40);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-weight: 500;
+  cursor: pointer;
+}
 
-  .appointment-form label {
-    font-size: 14px;
-  }
+.nav-buttons button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
 
-  .appointment-form input,
-  .appointment-form textarea {
-    font-size: 14px;
-  }
+.form label {
+  display: block;
+  margin: 15px 0 5px;
+  font-weight: 500;
+}
+
+.form select, .form textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-family: 'Poppins', sans-serif;
+}
+
+.confirmation-message {
+  font-size: 18px;
+  text-align: center;
+  color: #4caf50;
+  padding: 40px;
+  background: #f0fff4;
+  border: 1px solid #c8e6c9;
+  border-radius: 12px;
 }

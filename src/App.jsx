@@ -7,10 +7,13 @@ import Booking from './pages/Booking';
 import HospitalLocator from './pages/HospitalLocator';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import Profile from './pages/Profile';
+//import Profile from './pages/Profile';
+import HospitalEmbed from './components/hospitalembed';
 import NotFound from './pages/NotFound';
+
 //import ProtectedRoute from './components/ProtectedRoute';
 import './styles/global.css';
+import DoctorProfile from './components/Docprofile';
 
 
 export default function App() {
@@ -25,14 +28,10 @@ export default function App() {
           <Route path="/hospitals" element={<HospitalLocator />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route
-            path="/profile"
-            element={
-              //<ProtectedRoute>
-                <Profile />
-              //</ProtectedRoute>
-            }
-          />
+          
+          <Route path="/profile/:id" element={<DoctorProfile />} />
+          
+          <Route path="/hospitalembed" element={<HospitalEmbed />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

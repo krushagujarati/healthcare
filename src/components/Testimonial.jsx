@@ -1,49 +1,61 @@
 import React from "react";
-import '../styles/testimonial.css';
-
+import "../styles/testimonial.css";
+import { FaStar, FaStarHalfAlt } from "react-icons/fa";
 
 const testimonials = [
   {
-    id: 1,
-    name: "Alice Johnson",
-    feedback:
-      "The platform made booking an appointment so simple and quick. Highly recommended!",
+    initials: "SJ",
+    name: "Sarah Johnson",
+    text: "HealthConnect made finding a specialist so easy! I booked an appointment with a dermatologist within minutes and got the care I needed.",
+    color: "pink",
+    rating: 5,
   },
   {
-    id: 2,
-    name: "Mark Stevens",
-    feedback:
-      "I found an excellent specialist nearby with just a few clicks. Great service.",
+    initials: "MT",
+    name: "Michael Thompson",
+    text: "I love how I can track all my family's appointments in one place. The reminders are super helpful and the doctors are top-notch.",
+    color: "orange",
+    rating: 4.5,
   },
   {
-    id: 3,
-    name: "Sara Williams",
-    feedback:
-      "Tracking my appointments and medical history here is super convenient.",
+    initials: "AP",
+    name: "Alicia Patel",
+    text: "As a busy mom, being able to book appointments online saves me so much time. The doctors are caring and the whole experience is seamless.",
+    color: "yellow",
+    rating: 5,
   },
 ];
 
-const Testimonial = () => {
+const Testimonials = () => {
   return (
-    <section className="py-12 bg-blue-50">
-      <div className="max-w-4xl mx-auto px-6 text-center">
-        <h2 className="text-3xl font-semibold mb-10">What Our Users Say</h2>
-        <div className="space-y-8">
-          {testimonials.map(({ id, name, feedback }) => (
-            <div
-              key={id}
-              className="bg-white p-6 rounded-lg shadow-md max-w-xl mx-auto transition transform hover:scale-[1.02] hover:shadow-lg"
-            >
-              <p className="text-gray-800 italic mb-4 relative before:content-['“'] before:absolute before:-left-4 before:text-4xl before:text-blue-300">
-                {feedback}
-              </p>
-              <p className="font-semibold text-blue-700">- {name}</p>
+    <section className="testimonials" id="testimonials">
+      <h2 className="testimonials-title">What Our Patients Say</h2>
+      <div className="testimonial-cards">
+        {testimonials.map((t, index) => (
+          <div key={index} className="testimonial-card">
+            <div className="testimonial-header">
+              <div className={`avatar ${t.color}`}>{t.initials}</div>
+              <div>
+                <h4>{t.name}</h4>
+                <div className="stars">
+                  {Array.from({ length: Math.floor(t.rating) }).map((_, i) => (
+                    <FaStar key={i} color="#fcd34d" />
+                  ))}
+                  {t.rating % 1 !== 0 && <FaStarHalfAlt color="#fcd34d" />}
+                </div>
+              </div>
             </div>
-          ))}
-        </div>
+            <p className="testimonial-text">"{t.text}"</p>
+          </div>
+        ))}
+      </div>
+      <div className="testimonial-dots">
+        <span className="dot active"></span>
+        <span className="dot"></span>
+        <span className="dot"></span>
       </div>
     </section>
   );
 };
 
-export default Testimonial;
+export default Testimonials;

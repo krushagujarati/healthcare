@@ -1,65 +1,60 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import "../styles/navbar.css"
+import "../styles/navbar.css";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <nav className="bg-white shadow-md">
-      <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-        <Link to="/" className="text-2xl font-bold text-blue-600">
-          HealthCare
-        </Link>
+    <nav className="navbar">
+      <div className="navbar-container">
+        <div className="logo-section">
+          <span className="logo-icon">❗</span>
+          <Link to="/" className="logo-text">MadeEASY</Link>
+        </div>
 
-        {/* Desktop menu */}
-        <ul className="hidden md:flex space-x-6 text-gray-700 font-medium">
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/doctors">Find Doctor</Link></li>
-          <li><Link to="/hospitals">Hospitals</Link></li>
-          <li><Link to="/login">Login/Profile</Link></li>
+        {/* Desktop Menu */}
+        <ul className="nav-links">
+          <li><Link to="/" className="nav-item">Home</Link></li>
+          <li><Link to="/doctors" className="nav-item">Find Doctor</Link></li>
+          <li><Link to="/hospitals" className="nav-item">Hospitals</Link></li>
+          <li><Link to="/appointment" className="nav-item">Appointment</Link></li>
+          <li><Link to="/about" className="nav-item">About Us</Link></li>
+          <li>
+            <Link to="/login">
+              <button className="login-btn">Login</button>
+            </Link>
+          </li>
         </ul>
 
-        {/* Mobile menu button */}
+        {/* Hamburger Icon */}
         <button
+          className="hamburger"
           onClick={() => setMenuOpen(!menuOpen)}
-          className="md:hidden text-gray-700 focus:outline-none"
-          aria-label="Toggle menu"
-          aria-expanded={menuOpen}
+          aria-label="Toggle Menu"
         >
-          {/* Hamburger icon */}
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
+          <svg viewBox="0 0 24 24" className="hamburger-icon">
             {menuOpen ? (
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M6 18L18 6M6 6l12 12"
-              />
+              <path d="M6 18L18 6M6 6l12 12" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             ) : (
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h16M4 18h16"
-              />
+              <path d="M4 6h16M4 12h16M4 18h16" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             )}
           </svg>
         </button>
       </div>
 
-      {/* Mobile menu */}
+      {/* Mobile Menu */}
       {menuOpen && (
-        <ul className="md:hidden px-6 pb-4 space-y-3 text-gray-700 font-medium">
+        <ul className="mobile-menu">
           <li><Link to="/" onClick={() => setMenuOpen(false)}>Home</Link></li>
           <li><Link to="/doctors" onClick={() => setMenuOpen(false)}>Find Doctor</Link></li>
           <li><Link to="/hospitals" onClick={() => setMenuOpen(false)}>Hospitals</Link></li>
-          <li><Link to="/login" onClick={() => setMenuOpen(false)}>Login/Profile</Link></li>
+          <li><Link to="/about" onClick={() => setMenuOpen(false)}>About Us</Link></li>
+          <li>
+            <Link to="/login" onClick={() => setMenuOpen(false)}>
+              <button className="login-btn">Login</button>
+            </Link>
+          </li>
         </ul>
       )}
     </nav>
