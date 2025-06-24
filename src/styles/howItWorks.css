@@ -30,7 +30,7 @@
   display: flex;
   max-width: 1400px;
   margin: auto;
-  background: linear-gradient(135deg, #ffc4ec, #8ec5fc);
+  background: linear-gradient(135deg, #fa95da, #76b9fb);
   animation: gradientAnimation 15s ease infinite;
   border-radius: 20px;
   overflow: hidden;

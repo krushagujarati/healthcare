@@ -3,12 +3,13 @@
 body, .hospital-finder {
   font-family: 'Poppins', sans-serif;
   background-color: #f7f9fb;
-  padding: 45px;
-  color: #111827;
+  padding-top: 45px;
+  color: #271117;
+  padding-bottom: 30px;
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 1300px;
   margin: 0 auto;
 }
 
@@ -68,7 +69,7 @@ body, .hospital-finder {
 }
 
 .apply {
-  background-color: #2563eb;
+  background-color: #f70fb9;
   color: #ffffff;
   border: none;
   border-radius: 8px;
@@ -79,7 +80,7 @@ body, .hospital-finder {
 }
 
 .apply:hover {
-  background-color: #1e40af;
+  background-color: #f42fd3;
 }
 
 .map-section {
